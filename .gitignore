@@ -1,4 +1,6 @@
 CMake*
+build/*
+*.swp
 *.cmake
 *.so
 *.a
