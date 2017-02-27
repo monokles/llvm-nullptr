@@ -1,10 +1,14 @@
 # llvm-pass-skeleton
 
-A completely useless LLVM pass.
+An LLVM pass that aims to detect bad pointer usage in C code.
+Assignment for a compiler course.
+
+Heavy WIP:
+initial commit only supports bad pointer usage without taking control flow into account.
 
 Build:
 
-    $ cd llvm-pass-skeleton
+    $ cd llvm-nullptr
     $ mkdir build
     $ cd build
     $ cmake ..
@@ -13,4 +17,4 @@ Build:
 
 Run:
 
-    $ clang -Xclang -load -Xclang build/skeleton/libSkeletonPass.* something.c
+    $ clang -Xclang -load -Xclang build/skeleton/libNullpPass.* something.c
