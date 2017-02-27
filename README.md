@@ -1,4 +1,4 @@
-# llvm-pass-skeleton
+# llvm-nullptr
 
 An LLVM pass that aims to detect bad pointer usage in C code.
 Assignment for a compiler course.
@@ -17,4 +17,4 @@ Build:
 
 Run:
 
-    $ clang -Xclang -load -Xclang build/skeleton/libNullpPass.* something.c
+    $ clang -Xclang -load -Xclang build/nullp/libNullpPass.* something.c
