@@ -65,11 +65,11 @@ namespace {
             for (auto I = inst_begin(F), E = inst_end(F); I != E; ++I) {
                 errs() << *I << "\n";
 
-                if(auto alloca = dyn_cast<AllocaInst>(&(*I))) {
-                    if(isa<PointerType>(alloca->getAllocatedType())) {
-                        ptrValues.insert(alloca);
-                        errs() << "\n use chain for " << alloca << "\n";
-                        for(auto U = alloca->user_begin(), E = alloca->user_end(); U != E; ++U) {
+                if(auto allocate = dyn_cast<AllocaInst>(&(*I))) {
+                    if(isa<PointerType>(allocate->getAllocatedType())) {
+                        ptrValues.insert(allocate);
+                        errs() << "\n use chain for " << allocate << "\n";
+                        for(auto U = allocate->user_begin(), E = allocate->user_end(); U != E; ++U) {
                             (*U)->dump();
                         }
                         errs() << "\n";
@@ -101,7 +101,15 @@ namespace {
 
                 if(PIV.loadBuffer.size() != 0) {
                     for(auto ins : PIV.loadBuffer) {
-                        errs() << "ERROR: reading from a null pointer at " << ins << "\n";
+                        errs() << "ERROR: reading from a null pointer at ";
+                        if(ins->getDebugLoc()) {
+                            //If clang is run with -g flag, print line number
+                            errs() << "line number " << ins->getDebugLoc().getLine() << ", col" << ins->getDebugLoc().getCol()  << "\n";
+                        }
+                        else {
+                            //otherwise, just display the address location of the error
+                            errs() << ins << "\n";
+                        }
                         ins->dump();
                         errs() << ins->getName() << "\n";
                     }
