@@ -144,6 +144,6 @@ static void registerNullpPass(const PassManagerBuilder &,
         legacy::PassManagerBase &PM) {
     PM.add(new NullpPass());
 }
-//static RegisterStandardPasses
-//RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
-//        registerNullpPass);
+static RegisterStandardPasses
+RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
+        registerNullpPass);
