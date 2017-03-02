@@ -101,7 +101,15 @@ namespace {
 
                 if(PIV.loadBuffer.size() != 0) {
                     for(auto ins : PIV.loadBuffer) {
-                        errs() << "ERROR: reading from a null pointer at " << ins << "\n";
+                        errs() << "ERROR: reading from a null pointer at ";
+                        if(ins->getDebugLoc()) {
+                            //If clang is run with -g flag, print line number
+                            errs() << "line number " << ins->getDebugLoc().getLine() << ", col" << ins->getDebugLoc().getCol()  << "\n";
+                        }
+                        else {
+                            //otherwise, just display the address location of the error
+                            errs() << ins << "\n";
+                        }
                         ins->dump();
                         errs() << ins->getName() << "\n";
                     }
