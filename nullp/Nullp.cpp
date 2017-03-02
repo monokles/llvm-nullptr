@@ -113,6 +113,7 @@ namespace {
          * Function pass main code
          */
         virtual bool runOnFunction(Function &F) {
+            ptrValues.clear(); //make sure we're not using leftovers from a previous function
             errs() << "Considering function " << F.getName() << "!\n";
 
             ///Step 1: Find all ptrValues that are pointers
