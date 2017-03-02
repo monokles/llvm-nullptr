@@ -65,11 +65,11 @@ namespace {
             for (auto I = inst_begin(F), E = inst_end(F); I != E; ++I) {
                 errs() << *I << "\n";
 
-                if(auto alloca = dyn_cast<AllocaInst>(&(*I))) {
-                    if(isa<PointerType>(alloca->getAllocatedType())) {
-                        ptrValues.insert(alloca);
-                        errs() << "\n use chain for " << alloca << "\n";
-                        for(auto U = alloca->user_begin(), E = alloca->user_end(); U != E; ++U) {
+                if(auto allocate = dyn_cast<AllocaInst>(&(*I))) {
+                    if(isa<PointerType>(allocate->getAllocatedType())) {
+                        ptrValues.insert(allocate);
+                        errs() << "\n use chain for " << allocate << "\n";
+                        for(auto U = allocate->user_begin(), E = allocate->user_end(); U != E; ++U) {
                             (*U)->dump();
                         }
                         errs() << "\n";
@@ -144,6 +144,6 @@ static void registerNullpPass(const PassManagerBuilder &,
         legacy::PassManagerBase &PM) {
     PM.add(new NullpPass());
 }
-static RegisterStandardPasses
-RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
-        registerNullpPass);
+//static RegisterStandardPasses
+//RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
+//        registerNullpPass);
